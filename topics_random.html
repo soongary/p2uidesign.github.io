@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Random Questions About Life</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f1f1f1;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .question-card {
+            background-color: #ffffff;
+            border-radius: 20px;
+            padding: 100px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-top: 0;
+        }
+
+        .random {
+            font-size: 15px;
+            color: #888888;
+            text-align: center;
+            margin-bottom: 100px;
+        }
+
+
+        .btn-container {
+            text-align: center;
+        }
+
+        #nextButton {
+            background-color: black;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="question-card">
+             <div class="random">random</div>
+            <h2 id="question"></h2>
+            <div class="btn-container">
+                <button id="nextButton">Next Question</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            "What is the meaning of life?",
+            "How can we find happiness?",
+            "What is the secret to a fulfilling life?",
+            "What is the purpose of our existence?",
+            "How do you define success in life?",
+            "What is the key to a balanced life?",
+            "Given the choice of anyone in the world, whom would you want as a dinner guest?",
+            "Would you like to be famous? In what way?",
+            "Before making a telephone call, do you ever rehearse what you are going to say? Why?",
+            "What would constitute a 'perfect' day for you?",
+            "When did you last sing to yourself? To someone else?",
+            "If you were able to live to the age of 90 and retain either the mind or body of a 30-year-old for the last 60 years of your life, which would you want?",
+            "Do you have a secret hunch about how you will die?",
+            "What is your favorite book and why?",
+"What is the most memorable concert or live performance you've attended?",
+"What is your favorite season and why?",
+"What is your go-to comfort food?",
+"What is your dream travel destination?",
+"What is your favorite hobby or pastime?",
+"What is the best piece of advice you've ever received?",
+"What is your favorite movie of all time?",
+"What is your favorite quote and why?",
+"What is your favorite way to unwind and relax?",
+"What is your proudest accomplishment?",
+"What is the most interesting thing you've ever learned?",
+"What is your favorite type of cuisine?",
+"What is your favorite outdoor activity?",
+"What is your favorite TV show or series?",
+"What is your favorite childhood memory?",
+"What is your favorite animal and why?",
+"What is your favorite way to stay active and fit?",
+"What is your favorite app or website?",
+"What is your favorite holiday or celebration?",
+"What is your favorite piece of technology and why?",
+"What is your favorite thing about yourself?",
+"What is your favorite way to connect with friends and family?",
+"What is your favorite quote and why?",
+"What is your favorite way to give back to your community?",
+            "Name three things you and your partner appear to have in common?",
+            "For what in your life do you feel most grateful?",
+            "If you could change anything about the way you were raised, what would it be?",
+            "Take four minutes and tell your partner your life story in as much detail as possible.",
+            "If you could wake up tomorrow having gained any one quality or ability, what would it be?",
+            "If a crystal ball could tell you the truth about yourself, your life, the future or anything else, what would you want to know?",
+            "Is there something that you've dreamed of doing for a long time? Why haven't you done it?",
+            "What is the greatest accomplishment of your life?",
+            "What do you value most in a friendship?",
+            "What is your most treasured memory?",
+            "What is your most terrible memory?",
+            "If you knew that in one year you would die suddenly, would you change anything about the way you are now living? Why?",
+            "What does friendship mean to you?",
+            "What roles do love and affection play in your life?",
+            "Alternate sharing something you consider a positive characteristic of your partner. Share a total of five items.",
+            "How close and warm is your family? Do you feel your childhood was happier than most other people's?",
+            "What is your favorite fashion trend?",
+"What is your favorite type of art or artistic expression?",
+"What is your favorite thing about nature?",
+"What is your favorite way to learn or acquire new skills?",
+"What is your favorite type of exercise or workout?",
+"What is your favorite way to start your day?",
+"What is your favorite fictional character and why?",
+"What is your favorite type of cuisine to cook at home?",
+"What is your favorite way to express creativity?",
+"What is your favorite childhood game or toy?",
+"What is your favorite form of self-care?",
+"What is your favorite way to stay organized?",
+"What is your favorite thing about your job or career?",
+"What is your favorite thing to do on a rainy day?",
+"What is your favorite quote and why?",
+"What is your favorite way to practice mindfulness or relaxation?",
+            "How do you feel about your relationship with your mother?",
+            "Make three true 'we' statements each. For instance, 'We are both in this room feeling...'",
+            "Complete this sentence: 'I wish I had someone with whom I could share...'",
+            "If you were going to become a close friend with your partner, please share what would be important for him or her to know.",
+            "Tell your partner what you like about them; be very honest this time, saying things that you might not say to someone you've just met.",
+            "Share with your partner an embarrassing moment in your life.",
+            "When did you last cry in front of another person? By yourself?",
+            "Tell your partner something that you like about them already.",
+            "What, if anything, is too serious to be joked about?",
+            "What is your favorite place in the world and why?",
+"What is your favorite way to learn about different cultures?",
+"What is your favorite way to celebrate achievements or milestones?",
+"What is your favorite type of weather and why?",
+"What is your favorite way to give and receive love?",
+"What is your favorite way to stay motivated?",
+"What is your favorite thing about your hometown or current city?",
+"What is your favorite way to be environmentally friendly?",
+"What is your favorite childhood song or lullaby?",
+"What is your favorite way to learn about history?",
+"What is your favorite way to express gratitude?",
+"What is your favorite type of adventure or thrill-seeking activity?",
+"What is your favorite way to stay positive and optimistic?",
+"What is your favorite way to pamper yourself?",
+"What is your favorite way to celebrate birthdays?",
+"What is your favorite thing about the changing seasons?",
+"What is your favorite way to practice mindfulness or relaxation?",
+"What is your favorite type of music to dance to?",
+"What is your favorite way to make a positive impact on others?",
+            "If you were to die this evening with no opportunity to communicate with anyone, what would you most regret not having told someone? Why haven't you told them yet?",
+            "Your house, containing everything you own, catches fire. After saving your loved ones and pets, you have time to safely make a final dash to save any one item. What would it be? Why?",
+            "What is your favorite thing about weekends?",
+"What is your favorite way to overcome challenges?",
+"What is your favorite type of outdoor scenery?",
+"What is your favorite way to show kindness to others?",
+"What is your favorite way to show appreciation to someone?",
+"What is your favorite thing about your favorite hobby or activity?",
+"What is your favorite way to learn about different cultures?",
+"What is your favorite type of dessert?",
+"What is your favorite way to celebrate the holidays?",
+"What is your favorite way to stay connected with nature?",
+"What is your favorite way to recharge and rejuvenate?",
+"What is your favorite type of movie genre?",
+"What is your favorite way to dress up or style yourself?",
+"What is your favorite way to spread positivity?",
+"What is your favorite way to be spontaneous?",
+"What is your favorite way to make someone smile?",
+"What is your favorite way to overcome fear or anxiety?",
+"What is your favorite way to give back to the community?",
+"What is your favorite way to explore new places or travel?",
+            "Of all the people in your family, whose death would you find most disturbing? Why?",
+            "Share a personal problem and ask your partner's advice on how he or she might handle it. Also, ask your partner to reflect back to you how you seem to be feeling about the problem you have chosen."
+            "What is your favorite thing about your favorite book or author?",
+"What is your favorite way to celebrate personal milestones?",
+"What is your favorite way to stay inspired?",
+"What is your favorite way to show gratitude?",
+"What is your favorite way to relax and destress?",
+"What is your favorite way to connect with nature?",
+"What is your favorite way to learn new things?",
+"What is your favorite type of food?",
+"What is your favorite way to stay positive?",
+"What is your favorite way to be creative?",
+"What is your favorite way to spend time with loved ones?",
+"What is your favorite way to celebrate achievements?",
+"What is your favorite thing about your favorite movie or TV show?",
+"What is your favorite way to embrace change?",
+"What is your favorite way to show love to others?",
+"What is your favorite way to stay motivated and focused?",
+"What is your favorite way to explore new hobbies or interests?",
+"What is your favorite way to give back to others?",
+"What is your favorite way to celebrate special occasions?",
+"What is your favorite way to unwind and relax?",
+"What is your favorite thing about your favorite sport or game?",
+"What is your favorite way to overcome obstacles?",
+"What is your favorite way to express yourself creatively?",
+"What is your favorite way to show appreciation?",
+"What is your favorite way to enjoy the outdoors?",
+"What is your favorite way to recharge?",
+"What is your favorite thing about your favorite song or musician?",
+"What is your favorite way to make a difference in the world?",
+"What is your favorite way to spend a lazy day?",
+"What is your favorite way to confront challenges?",
+"What is your favorite thing about your favorite holiday or celebration?",
+"What is your favorite way to stay focused and productive?",
+"What is your favorite way to discover new music?",
+"What is your favorite way to give to others?",
+"What is your favorite way to celebrate small wins?",
+"What is your favorite thing about your favorite art form or artist?",
+"What is your favorite way to practice self-love?",
+"What is your favorite way to spend quality time with family?",
+"What is your favorite way to commemorate special moments?",
+"What is your favorite thing about your favorite type of cuisine?",
+"What is your favorite way to stay motivated and positive?",
+"What is your favorite way to learn about different cultures?",
+"What is your favorite way to express yourself through fashion?",
+"What is your favorite way to embrace your inner child?",
+"What is your favorite way to make someone's day?",
+"What is your favorite way to overcome a difficult situation?",
+"What is your favorite way to support charitable causes?",
+"What is your favorite way to explore new places or travel?",
+"What is your favorite thing about your favorite book or author?",
+"What is your favorite way to celebrate personal milestones?",
+"What is your favorite way to stay inspired?",
+"What is your favorite way to show gratitude?",
+"What is your favorite way to relax and destress?",
+"What is your favorite way to connect with nature?",
+"What is your favorite way to learn new things?",
+"What is your favorite type of food?",
+"What is your favorite way to stay positive?",
+"What is your favorite way to be creative?",
+"What is your favorite way to spend time with loved ones?",
+"What is your favorite way to celebrate achievements?",
+"What is your favorite thing about your favorite movie or TV show?",
+"What is your favorite way to embrace change?",
+"What is your favorite way to show love to others?",
+"What is your favorite way to stay motivated and focused?",
+"What is your favorite way to explore new hobbies or interests?",
+"What is your favorite way to give back to others?",
+"What is your favorite way to celebrate special occasions?",
+"What is your favorite way to unwind and relax?",
+"What is your favorite thing about your favorite sport or game?",
+        ];
+
+        const questionElement = document.getElementById("question");
+        const nextButton = document.getElementById("nextButton");
+
+        function getRandomQuestion() {
+            return questions[Math.floor(Math.random() * questions.length)];
+        }
+
+        function displayRandomQuestion() {
+            const randomQuestion = getRandomQuestion();
+            questionElement.textContent = randomQuestion;
+        }
+
+        nextButton.addEventListener("click", displayRandomQuestion);
+
+        // Call the function to display a random question when the page loads
+        displayRandomQuestion();
+    </script>
+</body>
+</html>
